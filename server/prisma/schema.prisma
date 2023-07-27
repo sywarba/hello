@@ -22,38 +22,46 @@ model AppConfig {
 }
 
 model User {
-  id                  String    @id @default(dbgenerated("gen_random_uuid()"))
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime? @updatedAt
+  id                  String            @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime?         @updatedAt
   deletedAt           DateTime?
+  email               String            @unique
   firstName           String?
   lastName            String?
-  username            String    @unique
+  username            String            @unique
   password            String?
   isValid             Boolean?
   roles               String[]
   latitude            Float?
   longitude           Float?
-  skills              String?
+  skills              String[]
   phoneNumber         Int?
-  preferencesCategory String?
-  preferencesLocation String?
-  professionCategory  String?
+  preferencesCategory String[]
+  preferencesLocation String[]
+  professionCategory  String[]
+  Annonce             Annonce[]
+  Interaction         Interaction[]
+  InteractionUserBy    InteractionUser[]  @relation("regularuser")
+  InteractionUser     InteractionUser[]  @relation("prouser")
+  
 }
 
 model Annonce {
-  id           String    @id @default(dbgenerated("gen_random_uuid()"))
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime? @updatedAt
+  id           String        @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
   deletedAt    DateTime?
   title        String?
   content      String?
-  userId       Int?
+  userId       String
   endDate      DateTime?
   annonceType  String?
   longitude    Float?
   latitude     Float?
   interactions String?
+  user         User          @relation(fields: [userId], references: [id])
+  Interaction  Interaction[]
 }
 
 model Interaction {
@@ -61,19 +69,23 @@ model Interaction {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime? @updatedAt
   deletedAt       DateTime?
-  userId          Int?
-  annonceId       Int?
+  userIdI         String
+  annonceId       String
   interactionType String?
+  user            User      @relation(fields: [userIdI], references: [id])
+  annonce         Annonce   @relation(fields: [annonceId], references: [id])
 }
 
 model InteractionUser {
-  id              String    @id @default(dbgenerated("gen_random_uuid()"))
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime? @updatedAt
-  deletedAt       DateTime?
-  userId_1        Int?
-  userId_2        Int?
-  interactionType String?
-  date            DateTime?
-  status          String?
+  id                 String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
+  deletedAt          DateTime?
+  userId_1           String
+  userId_2           String
+  interactionType    String?
+  date               DateTime?
+  status             String?
+  user_id_1_relation User      @relation("regularuser", fields: [userId_1], references: [id])
+  user_id_2_relation User      @relation("prouser",fields: [userId_2], references: [id])
 }
