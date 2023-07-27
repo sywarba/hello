@@ -1,0 +1,79 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator prismaCRUDGenerator {
+  provider = "npx prisma-generator-crud"
+  output   = "./generated"
+}
+
+model AppConfig {
+  id        String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+  value     String?
+  key       String?   @unique
+}
+
+model User {
+  id                  String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime? @updatedAt
+  deletedAt           DateTime?
+  firstName           String?
+  lastName            String?
+  username            String    @unique
+  password            String?
+  isValid             Boolean?
+  roles               String[]
+  latitude            Float?
+  longitude           Float?
+  skills              String?
+  phoneNumber         Int?
+  preferencesCategory String?
+  preferencesLocation String?
+  professionCategory  String?
+}
+
+model Annonce {
+  id           String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+  deletedAt    DateTime?
+  title        String?
+  content      String?
+  userId       Int?
+  endDate      DateTime?
+  annonceType  String?
+  longitude    Float?
+  latitude     Float?
+  interactions String?
+}
+
+model Interaction {
+  id              String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+  deletedAt       DateTime?
+  userId          Int?
+  annonceId       Int?
+  interactionType String?
+}
+
+model InteractionUser {
+  id              String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
+  deletedAt       DateTime?
+  userId_1        Int?
+  userId_2        Int?
+  interactionType String?
+  date            DateTime?
+  status          String?
+}

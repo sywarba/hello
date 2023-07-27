@@ -1,0 +1,35 @@
+{
+  "dataServiceGeneratorVersion": "0.11.2",
+  "appInfo": {
+    "name": "siwar",
+    "description": "",
+    "menuDisplay": "horizontal",
+    "version": "ppk1u9bp",
+    "id": "clkkw7csh12024401o80lmjllte",
+    "url": "http://localhost:3005/clkkw7csh12024401o80lmjllte",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "nest",
+      "dbPassword": "123",
+      "dbPort": 5432,
+      "dbUser": "postgres",
+      "appId": "clkkw7csh12024401o80lmjllte",
+      "authProvider": "Jwt"
+    },
+    "appColors": {
+      "primary": [
+        { "label": "primary-50", "value": "#A9B1E2" },
+        { "label": "primary-100", "value": "#8C94C4" },
+        { "label": "primary-500", "value": "#19204A" },
+        { "label": "primary-800", "value": "#0A0D1E" }
+      ],
+      "secondary": [
+        { "label": "secondary-50", "value": "#FDF9F3" },
+        { "label": "secondary-100", "value": "#FBF3E6" },
+        { "label": "secondary-500", "value": "#EAC584" },
+        { "label": "secondary-800", "value": "#82683B" }
+      ]
+    },
+    "authTemplate": "template-1"
+  }
+}
